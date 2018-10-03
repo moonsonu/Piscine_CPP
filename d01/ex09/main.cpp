@@ -5,20 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksonu <ksonu@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 09:33:23 by ksonu             #+#    #+#             */
-/*   Updated: 2018/10/03 09:33:25 by ksonu            ###   ########.fr       */
+/*   Created: 2018/10/03 13:57:31 by ksonu             #+#    #+#             */
+/*   Updated: 2018/10/03 13:57:33 by ksonu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Human.hpp"
+#include "Logger.hpp"
 #include <iostream>
+#include <fstream>
 
-int			main()
+int		main()
 {
-	Human	h;
+	Logger	l;
 
-	h.action("meleeAttack", "mung");
-	h.action("rangedAttack", "meow");
-	h.action("intimidatingShout", "KIN");
+	l.log("console", "sdfsdfsdf");
+	l.log("file", "23425453");
 	return (0);
 }

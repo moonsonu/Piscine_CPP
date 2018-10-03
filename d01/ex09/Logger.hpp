@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Logger.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ksonu <ksonu@student.42.us.org>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/03 09:33:23 by ksonu             #+#    #+#             */
-/*   Updated: 2018/10/03 09:33:25 by ksonu            ###   ########.fr       */
+/*   Created: 2018/10/03 13:57:21 by ksonu             #+#    #+#             */
+/*   Updated: 2018/10/03 13:57:23 by ksonu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Human.hpp"
-#include <iostream>
+#ifndef LOGGER_HPP
+# define LOGGER_HPP
 
-int			main()
-{
-	Human	h;
+#include <string>
 
-	h.action("meleeAttack", "mung");
-	h.action("rangedAttack", "meow");
-	h.action("intimidatingShout", "KIN");
-	return (0);
-}
+class	Logger {
+	public:
+		Logger();
+		~Logger();
+		void			logToConsole(std::string const & message);
+		void			logToFile(std::string const & message);
+		std::string		displayTime();
+		void			log(std::string const & dest, std::string const & message);
+	private:
+		std::string	makeLogEntry(std::string);
+};
+
+#endif
