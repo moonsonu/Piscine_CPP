@@ -123,3 +123,4 @@ void	Screen::info(WINDOW *info_win, int lives, int score)
 		mvwaddstr(info_win, 1, 15, " <3 ");
 	return ;
 }
+

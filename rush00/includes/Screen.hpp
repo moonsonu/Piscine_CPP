@@ -10,6 +10,8 @@ public:
 	Screen(void);
 	~Screen(void);
 
+	int	width_;
+	int	height_;
 	int		score_size_;
 	int		getWidth(void) const;
 	int		getHeight(void) const;
@@ -30,8 +32,6 @@ private:
 
 	Screen& operator=(Screen const& screen);
 
-	int	width_;
-	int	height_;
 };
 
 #endif

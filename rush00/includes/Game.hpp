@@ -27,6 +27,8 @@ public:
 	int		lives_;
 	int		score_;
 	int		hp_;
+	void	main();
+	void	gameover();
 
 private:
 	Game(Game const& game);

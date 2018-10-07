@@ -1,5 +1,5 @@
 #include <unistd.h>
-
+#include <iostream>
 #include "Game.hpp"
 #include "Player.hpp"
 #include "Screen.hpp"
@@ -95,7 +95,6 @@ void	Game::run(void)
 	WINDOW* game_win = newwin(parent_y - score_size, parent_x, 0, 0);
 	WINDOW* info_win = newwin(score_size, parent_x, parent_y - score_size, 0);
 	scene_->addEntity(player);
-
 	while (running_)
 	{
 		getmaxyx(stdscr, new_y, new_x);
@@ -144,4 +143,63 @@ void	Game::displayScene(void)
 	scene_->display(*screen_);
 
 	return;
+}
+
+void	Game::main()
+{
+	WINDOW	*main = newwin(screen_->height_, screen_->width_, 0, 0);
+	while (running_)
+	{
+		wrefresh(main);
+		mvwaddstr(main, 1, 2, "  ______                    _____                      __  __    _                ");
+		mvwaddstr(main, 2, 2, " /_  __/_  ______  ___     / ___/____  ____ ___  ___  / /_/ /_  (_)___  ____ _    ");
+		mvwaddstr(main, 3, 2, "  / / / / / / __ \\/ _ \\    \\__ \\/ __ \\/ __ `__ \\/ _ \\/ __/ __ \\/ / __ \\/ __ `/    ");
+		mvwaddstr(main, 4, 2, " / / / /_/ / /_/ /  __/   ___/ / /_/ / / / / / /  __/ /_/ / / / / / / / /_/ /     ");
+		mvwaddstr(main, 5, 2, "/_/  \\__, / .___/\\___/   /____/\\____/_/ /_/ /_/\\___/\\__/_/ /_/_/_/ /_/\\__, /      ");
+		mvwaddstr(main, 6, 2, "    /____/_/                                                         /____/       ");
+		mvwaddstr(main, 7, 30, "      ____");
+		mvwaddstr(main, 8, 30, "     /___/\\__           PRESS y TO START");
+		mvwaddstr(main, 9, 30, "    _\\   \\/_/\\__       PRESS n to EXIT");
+		mvwaddstr(main, 10, 30, "  __\\       \\/_/\\             ");
+		mvwaddstr(main, 11, 30, "  \\   __    __ \\ \\                ");
+		mvwaddstr(main, 12, 30, " __\\  \\_\\   \\_\\ \\ \\   __    ");
+		mvwaddstr(main, 13, 30, "/_/\\   __   __   \\ \\_/_/\\   ");
+		mvwaddstr(main, 14, 30, "\\_\\/_\\__\\/\\__\\/\\__\\/_\\_\\/ ");
+		mvwaddstr(main, 15, 30, "   \\_\\/_/\\       /_\\_\\/         ");
+		mvwaddstr(main, 16, 30, "      \\_\\/       \\_\\/              ");
+		keyHandler_->readKeys();
+		if (keyHandler_->isPressed('y') || keyHandler_->isPressed('Y'))
+		{
+			run();
+			exit();
+		}
+		else if ( keyHandler_->isPressed('n') || keyHandler_->isPressed('N'))
+			exit();
+	}
+}
+
+void	Game::gameover()
+{
+	WINDOW	*newgame = newwin(screen_->height_, screen_->width_, 0, 0);
+
+	wrefresh(newgame);
+	
+	mvwaddstr(newgame, 1, 2, "┼┼┼┼┼┼┼┼┼┼┼┼┼┼GAME OVER┼┼┼┼┼┼┼┼┼┼┼┼┼");
+	mvwaddstr(newgame, 2, 2, "┼┼┼┼┼┼┼┼██┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼██┼┼┼┼┼┼┼┼┼");
+	mvwaddstr(newgame, 3, 2, "┼┼┼┼┼┼████▄┼┼┼▄▄▄▄▄▄▄┼┼┼▄████┼┼┼┼┼┼┼");
+	mvwaddstr(newgame, 4, 2, "┼┼┼┼┼┼┼┼┼▀▀█▄█████████▄█▀▀┼┼┼┼┼┼┼┼┼┼");
+	mvwaddstr(newgame, 5, 2, "┼┼┼┼┼┼┼┼┼┼┼█████████████┼┼┼┼┼┼┼┼┼┼┼┼");
+	mvwaddstr(newgame, 6, 2, "┼┼┼┼┼┼┼┼┼┼┼██▀▀▀███▀▀▀██┼┼┼┼┼┼┼┼┼┼┼┼");
+	mvwaddstr(newgame, 7, 2, "┼┼┼┼┼┼┼┼┼┼┼██┼┼┼███┼┼┼██┼┼┼┼┼┼┼┼┼┼┼┼");
+	mvwaddstr(newgame, 7, 2, "┼┼┼┼┼┼┼┼┼┼┼█████▀▄▀█████┼┼┼┼┼┼┼┼┼┼┼┼");
+	mvwaddstr(newgame, 7, 2, "┼┼┼┼┼┼┼┼┼┼┼┼███████████┼┼┼┼┼┼┼┼┼┼┼┼┼");
+	mvwaddstr(newgame, 7, 2, "┼┼┼┼┼┼┼┼▄▄▄██┼┼█▀█▀█┼┼██▄▄▄┼┼┼┼┼┼┼┼┼");
+	mvwaddstr(newgame, 7, 2, "┼┼┼┼┼┼┼┼▀▀██┼┼┼┼┼┼┼┼┼┼┼██▀▀┼┼┼┼┼┼┼┼┼");
+	mvwaddstr(newgame, 7, 2, "┼┼┼┼┼┼┼┼┼┼▀▀┼┼┼┼┼┼┼┼┼┼┼▀▀┼┼┼┼┼┼┼┼┼┼┼");
+	mvwaddstr(newgame, 7, 2, "┼┼┼┼┼┼┼┼┼PRESS R TO RESTART┼┼┼┼┼┼┼┼┼");
+	if (keyHandler_->isPressed('r') || keyHandler_->isPressed('R'))
+		{
+			run();
+			exit();
+		}
 }
