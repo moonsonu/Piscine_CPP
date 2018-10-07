@@ -6,6 +6,7 @@
 
 # include "Screen.hpp"
 # include "KeyHandler.hpp"
+# include "Scene.hpp"
 
 class Game
 {
@@ -20,6 +21,13 @@ public:
 	int	getFPS(void) const;
 	int	getRunTime(void) const;
 
+	void	update(void);
+	void	displayScene(void);
+
+	int		lives_;
+	int		score_;
+	int		hp_;
+
 private:
 	Game(Game const& game);
 	Game& operator=(Game const& game);
@@ -30,11 +38,10 @@ private:
 	bool		running_;
 	const int	 fps_;
 	unsigned int mspf_;
-	int			lives_;
-	int			score_;
-	//int			hp_;
+
 	Screen*		screen_;
 	KeyHandler*	keyHandler_;
+	Scene*		scene_;
 };
 
 #endif

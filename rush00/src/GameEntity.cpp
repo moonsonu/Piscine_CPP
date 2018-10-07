@@ -107,3 +107,18 @@ void	GameEntity::decPosition(Vec2 const& v)
 
 	return;
 }
+
+//~--------------------------------------------------------~
+// Functions
+
+void	GameEntity::update(void)
+{
+	return;
+}
+
+void	GameEntity::display(Screen const& screen) const
+{
+	screen.draw(position_, character_);
+
+	return;
+}

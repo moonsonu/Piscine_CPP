@@ -3,6 +3,7 @@
 #include "Game.hpp"
 #include "Player.hpp"
 #include "Screen.hpp"
+#include "Scene.hpp"
 
 //~--------------------------------------------------------~
 // Init
@@ -21,6 +22,7 @@ void	Game::init(void)
 
 	screen_ = new Screen;
 	keyHandler_ = new KeyHandler;
+	scene_ = new Scene;
 
 	return;
 }
@@ -86,37 +88,60 @@ int	Game::getFPS(void) const
 
 void	Game::run(void)
 {
-	Player player(10, 10, '>');
-	WINDOW *info_win = newwin(5, 60, 1, 2);
+	int		parent_x, parent_y, new_y, new_x;
+	int		score_size = 5;
+	Player* player = new Player(2, 2, '>', keyHandler_, scene_);
+	getmaxyx(stdscr, parent_y, parent_x);
+	WINDOW* game_win = newwin(parent_y - score_size, parent_x, 0, 0);
+	WINDOW* info_win = newwin(score_size, parent_x, parent_y - score_size, 0);
+	scene_->addEntity(player);
 
 	while (running_)
 	{
-
-		screen_->updateBoardSize();
+		getmaxyx(stdscr, new_y, new_x);
+		if (new_y != parent_y || new_x != parent_x)
+		{
+			parent_x = new_x;
+			parent_y = new_y;
+		}
+		wresize(game_win, new_y - score_size, new_x);
+		wresize(info_win, score_size, new_x);
+		mvwin(info_win, new_y - score_size, 0);
+		//screen_->updateBoardSize();
 		keyHandler_->readKeys();
-		if (keyHandler_->isPressed(KEY_RIGHT))
-			player.movX(1);
-		if (keyHandler_->isPressed(KEY_LEFT))
-			player.movX(-1);
-		if (keyHandler_->isPressed(KEY_UP))
-			player.movY(-1);
-		if (keyHandler_->isPressed(KEY_DOWN))
-			player.movY(1);
 		if (keyHandler_->isPressed('q') || keyHandler_->isPressed('Q'))
 			exit();
-
-		keyHandler_->reset();
+		scene_->update();
 		screen_->clr();
-		screen_->info(info_win, lives_, score_);
-		screen_->draw(player.getPosition(), player.getCharacter());
+		scene_->display(*screen_);
+		keyHandler_->reset();
+		screen_->info(info_win, player->lives_, player->score_);
 		usleep(mspf_);
 	}
+
+	delete player;
+
 	endwin();
 }
 
 void	Game::exit(void)
 {
 	running_ = false;
+
+	return;
+}
+
+void	Game::update(void)
+{
+	for (int i = 0; i < scene_->getEntityCount(); ++i)
+		scene_->getEntity(i)->update();
+
+	return;
+}
+
+void	Game::displayScene(void)
+{
+	scene_->display(*screen_);
 
 	return;
 }

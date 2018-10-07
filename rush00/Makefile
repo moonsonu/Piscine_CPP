@@ -8,7 +8,9 @@ SRC = src/main.cpp \
 	  src/GameEntity.cpp \
 	  src/Player.cpp \
 	  src/Screen.cpp \
-	  src/KeyHandler.cpp
+	  src/KeyHandler.cpp \
+	  src/Scene.cpp \
+	  src/Projectile.cpp
 
 HDR = $(wildcard includes/*.hpp)
 

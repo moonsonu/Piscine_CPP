@@ -2,13 +2,16 @@
 # define GAMEENTITY_H
 
 # include "Vec2.hpp"
+# include "Screen.hpp"
+
+class Scene;
 
 class GameEntity
 {
 public:
 	GameEntity(void);
 	GameEntity(GameEntity const& entity);
-	~GameEntity(void);
+	virtual ~GameEntity(void);
 
 	GameEntity& operator=(GameEntity const& entity);
 
@@ -27,10 +30,15 @@ public:
 	void	incPosition(Vec2 const& v);
 	void	decPosition(Vec2 const& v);
 
-protected:
-	Vec2 position_;
+	virtual void update(void) = 0;
+	void		 display(Screen const& screen) const;
 
-	char character_;
+protected:
+	Vec2	position_;
+	Vec2	colors_;
+	char	character_;
+
+	Scene*	scene_;
 };
 
 #endif

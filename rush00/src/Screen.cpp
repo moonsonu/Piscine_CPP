@@ -10,8 +10,8 @@ void	Screen::init(void)
 	initscr();
 	noecho();
 	curs_set(0);
-
-	getmaxyx(stdscr, this->height_, this->width_);
+	score_size_ = 5;
+	getmaxyx(stdscr, height_, width_);
 
 	return;
 }
@@ -43,8 +43,8 @@ Screen::~Screen(void)
 
 Screen& Screen::operator=(Screen const& screen)
 {
-	this->width_ = screen.getWidth();
-	this->height_ = screen.getHeight();
+	Screen::width_ = screen.getWidth();
+	Screen::height_ = screen.getHeight();
 
 	return (*this);
 }
@@ -59,7 +59,7 @@ int	Screen::getWidth(void) const
 
 int	Screen::getHeight(void) const
 {
-	return (this->height_);
+	return (this->height_ - this->score_size_);
 }
 
 //~--------------------------------------------------------~
@@ -72,14 +72,32 @@ void	Screen::clr(void)
 	return;
 }
 
-void	Screen::draw(int x, int y, char c)
+void	Screen::draw(int x, int y, char c) const
 {
 	mvaddch(y, x, c);
 }
 
-void	Screen::draw(Vec2 const& v, char c)
+void	Screen::draw(Vec2 const& v, char c) const
 {
 	mvaddch(v.y, v.x, c);
+}
+
+void	Screen::draw(int x, int y, char c, int col1, int col2) const
+{
+	init_pair(1, col1, col2);
+
+	attron(COLOR_PAIR(1));
+	draw(x, y, c);
+	attroff(COLOR_PAIR(1));
+}
+
+void	Screen::draw(Vec2 const& v, char c, int col1, int col2) const
+{
+	init_pair(1, col1, col2);
+
+	attron(COLOR_PAIR(1));
+	draw(v, c);
+	attroff(COLOR_PAIR(1));
 }
 
 void	Screen::updateBoardSize(void)
@@ -98,10 +116,10 @@ void	Screen::info(WINDOW *info_win, int lives, int score)
 	mvwaddstr(info_win, 3, 2, "SCORE: ");
 	mvwprintw(info_win, 3, 15, "%d", score);
 	if (lives == 3)
-		mvwaddstr(info_win, 1, 15, " ❤︎  ❤︎  ❤︎ ");
+		mvwaddstr(info_win, 1, 15, " <3 <3 <3 ");
 	else if (lives == 2)
-		mvwaddstr(info_win, 1, 15, " ❤︎  ❤︎ ");
+		mvwaddstr(info_win, 1, 15, " <3 <3 ");
 	else if (lives == 1)
-		mvwaddstr(info_win, 1, 15, " ❤︎ ");
+		mvwaddstr(info_win, 1, 15, " <3 ");
 	return ;
 }
