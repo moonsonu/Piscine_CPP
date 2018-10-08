@@ -10,7 +10,7 @@ void	Screen::init(void)
 	initscr();
 	noecho();
 	curs_set(0);
-	score_size_ = 5;
+
 	getmaxyx(stdscr, height_, width_);
 
 	return;
@@ -59,7 +59,7 @@ int	Screen::getWidth(void) const
 
 int	Screen::getHeight(void) const
 {
-	return (this->height_ - this->score_size_);
+	return (this->height_ - 5);
 }
 
 //~--------------------------------------------------------~
@@ -109,9 +109,13 @@ void	Screen::updateBoardSize(void)
 
 void	Screen::info(WINDOW *info_win, int lives, int score)
 {
+	start_color();
+	init_pair(1, COLOR_WHITE, COLOR_BLUE);
 	wrefresh(info_win);
-	//wclear(info_win);
+	wclear(info_win);
+	wbkgd(info_win, COLOR_PAIR(1));
 	box(info_win, '*', '*');
+	wattron(info_win, COLOR_PAIR(1));
 	mvwaddstr(info_win, 1, 2, "LIFE: ");
 	mvwaddstr(info_win, 3, 2, "SCORE: ");
 	mvwprintw(info_win, 3, 15, "%d", score);
@@ -121,6 +125,6 @@ void	Screen::info(WINDOW *info_win, int lives, int score)
 		mvwaddstr(info_win, 1, 15, " <3 <3 ");
 	else if (lives == 1)
 		mvwaddstr(info_win, 1, 15, " <3 ");
-	return ;
+	return;
+	wattroff(info_win, COLOR_PAIR(1));
 }
-

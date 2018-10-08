@@ -1,10 +1,10 @@
 #ifndef SCENE_H
 # define SCENE_H
 
-# include "GameEntity.hpp"
-# include "Screen.hpp"
-
 class Player;
+class GameEntity;
+class Screen;
+class Spawner;
 
 class Scene
 {
@@ -21,17 +21,26 @@ public:
 	void		update(void);
 	void		display(Screen const& screen);
 
+	int			getScore(void) const;
+	void		addScore(void);
+	void		resetScore(void);
+
+	void		clear(void);
+
 private:
 	Scene(Scene const& scene);
 
 	Scene& operator=(Scene const& scene);
 
 	void init(void);
+	void doSpawning(void);
 
-	static const int maxEntities_ = 512;
+	static const int maxEntities_ = 1024;
 
-	//Player*	player_;
 	GameEntity** entities_;
+	Spawner*	 spawner_;
+
+	int	score_;
 };
 
 #endif

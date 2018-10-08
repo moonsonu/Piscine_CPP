@@ -1,17 +1,25 @@
 #include <cstdlib>
 #include <curses.h>
+#include <string>
 
 #include "Scene.hpp"
+#include "Vec2.hpp"
+#include "Screen.hpp"
+#include "GameEntity.hpp"
+#include "Spawner.hpp"
 
 //~--------------------------------------------------------~
 // Init
 
 void	Scene::init(void)
 {
-	entities_	 = new GameEntity* [maxEntities_];
+	entities_	= new GameEntity* [maxEntities_];
+	spawner_	= new Spawner(this);
 
 	for (int i = 0; i < maxEntities_; ++i)
 		entities_[i] = NULL;
+
+	score_ = 0;
 
 	return;
 }
@@ -37,6 +45,7 @@ Scene::Scene(Scene const& scene)
 Scene::~Scene(void)
 {
 	delete [] entities_;
+	delete	  spawner_;
 
 	return;
 }
@@ -70,6 +79,25 @@ Scene&	Scene::operator=(Scene const& scene)
 
 //~--------------------------------------------------------~
 // Functions
+
+int		Scene::getScore(void) const
+{
+	return (score_);
+}
+
+void	Scene::addScore(void)
+{
+	score_ += 10;
+
+	return;
+}
+
+void	Scene::resetScore(void)
+{
+	score_ = 0;
+
+	return;
+}
 
 int	Scene::addEntity(GameEntity* entity)
 {
@@ -109,6 +137,8 @@ void	Scene::update(void)
 			entities_[i]->update();
 	}
 
+	doSpawning();
+
 	return;
 }
 
@@ -119,6 +149,27 @@ void	Scene::display(Screen const& screen)
 		if (entities_[i] != NULL)
 			entities_[i]->display(screen);
 	}
+
+	return;
+}
+
+void	Scene::clear(void)
+{
+	for (int i = 0; i < maxEntities_; ++i)
+	{
+		if (entities_[i] != NULL)
+			removeEntity(i);
+	}
+
+	return;
+}
+
+void	Scene::doSpawning(void)
+{
+	int r = rand() % 10000;
+
+	if (r > 9500)
+		spawner_->spawn("enemy");
 
 	return;
 }

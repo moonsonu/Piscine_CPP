@@ -24,20 +24,18 @@ public:
 	void	update(void);
 	void	displayScene(void);
 
-	int		lives_;
-	int		score_;
-	int		hp_;
-	void	main();
-	void	gameover();
-
 private:
 	Game(Game const& game);
 	Game& operator=(Game const& game);
 
 	void	init(void);
+	void	start(void);
+	void	gameOver(void);
 
-	int			time_;
-	bool		running_;
+	int		time_;
+	bool	running_;
+	bool	softexit_;
+	bool	init_;
 	const int	 fps_;
 	unsigned int mspf_;
 

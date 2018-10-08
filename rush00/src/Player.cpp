@@ -7,7 +7,7 @@
 //~--------------------------------------------------------~
 // Init
 
-void	Player::init(int x, int y, char c, int col1, int col2, KeyHandler* handler, Scene* scene)
+void	Player::init(int x, int y, int c, int col1, int col2, KeyHandler* handler, Scene* scene, Game *game)
 {
 	this->position_.x = x;
 	this->position_.y = y;
@@ -16,8 +16,8 @@ void	Player::init(int x, int y, char c, int col1, int col2, KeyHandler* handler,
 	this->colors_.y = col2;
 	this->keyHandler_ = handler;
 	this->scene_ = scene;
-	this->hp_ = 500;
-	this->score_ = 0;
+	this->game_ = game;
+	this->isDeadly_ = false;
 	this->lives_ = 3;
 
 	return;
@@ -26,16 +26,18 @@ void	Player::init(int x, int y, char c, int col1, int col2, KeyHandler* handler,
 //~--------------------------------------------------------~
 // Constructors & Destructor
 
+#include <stdlib.h>
+
 Player::Player(void)
 {
-	init(0, 0, '>', 0, 0, NULL, NULL);
+	init(0, 0, '>', 0, 0, NULL, NULL, NULL);
 
 	return;
 }
 
-Player::Player(int x, int y, char c, KeyHandler* handler, Scene* scene)
+Player::Player(int x, int y, int c, KeyHandler* handler, Scene* scene, Game* game)
 {
-	init(x, y, c, 7, 7, handler, scene);
+	init(x, y, c, 7, 7, handler, scene, game);
 
 	return;
 }
@@ -53,16 +55,26 @@ Player::~Player(void)
 }
 
 //~--------------------------------------------------------~
+// Gets
+
+int	Player::getLives(void) const
+{
+	return (lives_);
+}
+
+//~--------------------------------------------------------~
 // Functions
 
 void	Player::fire(void)
 {
-	Projectile* p = new Projectile(this->getX() + 1, this->getY(), '~', scene_);
+	Projectile* p = new Projectile(this->getX() + 1, this->getY(), '~', scene_, true);
 
 	p->setEntityIdx(scene_->addEntity(p));
 
 	return;
 }
+
+#include <cstdlib>
 
 void	Player::update(void)
 {
@@ -71,10 +83,6 @@ void	Player::update(void)
 	int movx = 0;
 	int movy = 0;
 
-	if (keyHandler_->isPressed(KEY_RIGHT))
-		movx += 1;
-	if (keyHandler_->isPressed(KEY_LEFT))
-		movx -= 1;
 	if (keyHandler_->isPressed(KEY_DOWN))
 		movy += 1;
 	if (keyHandler_->isPressed(KEY_UP))
@@ -86,19 +94,20 @@ void	Player::update(void)
 		this->movX(movx);
 	if (position_.y + movy >= 0 && position_.y + movy < screenInfo.getHeight())
 		this->movY(movy);
-//	this->movX(movx);
+
+	GameEntity*	collider = NULL;
+
+	collider = getCollision();
+
+	if (collider != NULL)
+	{
+		--lives_;
+
+		collider->movX(-2);
+
+		if (lives_ == 0)
+			game_->exit();
+	}
 
 	return;
-}
-
-void	Player::takeDamage(int damage)
-{
-	if (this->hp_ - damage > 0)
-		this->hp_ -= damage;
-	else
-	{
-		this->hp_ = 0;
-		if (this->lives_ != 0)
-			this->lives_--;
-	}
 }

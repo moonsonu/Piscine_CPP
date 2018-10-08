@@ -8,7 +8,7 @@ Vec2::Vec2(void) : x(0), y(0)
 	return;
 }
 
-Vec2::Vec2(int x_, int y_) : x(x_), y(y_)
+Vec2::Vec2(double x_, double y_) : x(x_), y(y_)
 {
 	return;
 }
@@ -54,4 +54,9 @@ Vec2 Vec2::operator-(Vec2 const& v)
 	temp.y -= v.y;
 
 	return (temp);
+}
+
+bool Vec2::operator==(Vec2 const& v) const
+{
+	return (this->x == v.x && this->y == v.y);
 }

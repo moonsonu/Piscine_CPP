@@ -6,12 +6,14 @@
 //~--------------------------------------------------------~
 // Init
 
-void	Projectile::init(int x, int y, char c, Scene* scene)
+void	Projectile::init(int x, int y, char c, Scene* scene, bool isDeadly)
 {
+	this->entityIdx_ = -1;
 	this->position_.x = x;
 	this->position_.y = y;
 	this->character_ = c;
 	this->scene_ = scene;
+	this->isDeadly_ = isDeadly;
 
 	return;
 }
@@ -21,21 +23,21 @@ void	Projectile::init(int x, int y, char c, Scene* scene)
 
 Projectile::Projectile(void)
 {
-	init(0, 0, '~', NULL);
+	init(0, 0, '~', NULL, false);
 
 	return;
 }
 
-Projectile::Projectile(int x, int y, char c, Scene* scene)
+Projectile::Projectile(int x, int y, char c, Scene* scene, bool isDeadly)
 {
-	init(x, y, c, scene);
+	init(x, y, c, scene, isDeadly);
 
 	return;
 }
 
-Projectile::Projectile(Vec2 const& v, char c, Scene* scene)
+Projectile::Projectile(Vec2 const& v, char c, Scene* scene, bool isDeadly)
 {
-	init(v.x, v.y, c, scene);
+	init(v.x, v.y, c, scene, isDeadly);
 
 	return;
 }
@@ -65,19 +67,10 @@ void	Projectile::update(void)
 		return;
 	}
 
-	this->movX(1);
+	if (isDeadly_)
+		this->movX(1);
+	else
+		this->movX(-1);
 
 	return;
-}
-
-void	Projectile::setEntityIdx(int n)
-{
-	entityIdx_ = n;
-
-	return;
-}
-
-int		Projectile::getEntityIdx(void) const
-{
-	return (entityIdx_);
 }

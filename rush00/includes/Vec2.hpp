@@ -4,16 +4,17 @@
 struct Vec2
 {
 	Vec2(void);
-	Vec2(int x_, int y_);
+	Vec2(double x_, double y_);
 	Vec2(Vec2 const& v);
 	~Vec2(void);
 
 	Vec2& operator=(Vec2 const& v);
 	Vec2 operator+(Vec2 const& v);
 	Vec2 operator-(Vec2 const& v);
+	bool operator==(Vec2 const& v) const;
 
-	int	x;
-	int y;
+	double	x;
+	double	y;
 };
 
 #endif
