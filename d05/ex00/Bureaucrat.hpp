@@ -16,8 +16,13 @@
 class	Bureaucrat {
 	private:
 		std::string		_name;
-		int				_grade;
-		int				_range;
+		int			_grade;
+		int			_range;
+	public:
+		void	GradeTooHighException();
+		void	getName();
+		void	getGrade();
+		std::ostream & operator<<(std::string &o, Bureaucrat const &b);
 };
 
 #endif

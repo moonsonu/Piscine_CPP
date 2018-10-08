@@ -22,6 +22,7 @@ Bureaucrat::~Bureaucrat()
 
 Bureaucrat::GradeTooHighException()
 {
+	
 }
 
 void	Bureaucrat::getName()
@@ -38,5 +39,5 @@ std::ostream & Bureaucrat::operator<<(std::string &o, Bureaucrat const &b)
 {
 	o << "<" << b.getName() << ">, " << "bureaucrat grade <" << b.getGrade() << ">." << std::endl;
 
-	return ();
+	return (o);
 }
