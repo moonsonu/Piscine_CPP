@@ -15,10 +15,13 @@
 
 #include <iostream>
 #include <string>
+#include "Form.hpp"
+
+class	Form;
 
 class	Bureaucrat {
 	public :
-	class	GradeTooHighException : public std::exception
+		class	GradeTooHighException : public std::exception
 	{
 		public:
 			GradeTooHighException();
@@ -29,7 +32,7 @@ class	Bureaucrat {
 
 	};
 
-	class	GradeTooLowException : public std::exception
+		class	GradeTooLowException : public std::exception
 	{
 		public:
 			GradeTooLowException();
@@ -48,13 +51,15 @@ class	Bureaucrat {
 		Bureaucrat(Bureaucrat const & src);
 		~Bureaucrat();
 		Bureaucrat & operator=(Bureaucrat const & rhs);
-		
+
 		void		incrementGrade();
 		void		decrementGrade();
 		std::string	getName() const;
 		int			getGrade() const;
+		void		signForm(Form & f);
+		void		executeForm(Form const & form);
 };
 
-std::ostream & operator<<(std::string &o, Bureaucrat const &b);
+std::ostream & operator<<(std::ostream &o, Bureaucrat &b);
 
 #endif

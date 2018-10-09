@@ -10,4 +10,48 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "Intern.hpp"
 
+Intern::Intern()
+{
+	return ;
+}
+
+Intern::~Intern()
+{
+	return ;
+}
+
+Intern::Intern(Intern const & src)
+{
+	*this = src;
+}
+
+Intern & Intern::operator=(Intern const & rhs)
+{
+	(void)rhs;
+	return (*this);
+}
+
+Form * makeForm(std::string name, std::string target)
+{
+}
+
+Form * searchForm(std::string name, std::string target)
+{
+}
+
+Form * Intern::RobotmyRequest(std::string const & target)
+{
+	return (new RobotmyRequestForm(target));
+}
+
+Form * Intern::Presidential(std::string const & target)
+{
+	return (new PresidentialPardonForm(target));
+}
+
+Form * Intern::ShrubberyCreation(std::string const & target)
+{
+	return (new ShrubberyCreationForm(target));
+}

@@ -125,7 +125,20 @@ int	Bureaucrat::getGrade() const
 	return (this->_grade);
 }
 
-std::ostream & operator<<(std::ostream &o, Bureaucrat  &b)
+void Bureaucrat::signForm(Form & f)
+{
+	try
+	{
+		f.beSigned(*this);
+		std::cout << "<" << _name << "> signs <" << f.getName() << ">" << std::endl;
+	}
+	catch (std::exception & e)
+	{
+		std::cout << "<" << _name << "> cannot sign <" << f.getName() << "> because <"
+				<< e.what() << ">" << std::endl;
+	}
+}
+std::ostream & operator<<(std::ostream &o, Bureaucrat &b)
 {
 	o << "<" << b.getName() << ">, " << "bureaucrat grade <" << b.getGrade() << ">." << std::endl;
 

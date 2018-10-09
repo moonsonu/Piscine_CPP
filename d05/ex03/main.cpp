@@ -10,43 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <iostream>
+#include <stdexcept>
+
+#include "Form.hpp"
+#include "Intern.hpp"
 #include "Bureaucrat.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
-int		main()
+int			main()
 {
-	try
-	{
-		Bureaucrat	b = Bureaucrat("moo", 150);
-		std::cout << b.getName() << std::endl;
-		std::cout << b.getGrade() << std::endl;
-		b.incrementGrade();
-		std::cout << b.getGrade() << std::endl;
-		b.incrementGrade();
-		std::cout << b.getGrade() << std::endl;
-		b.incrementGrade();
-		std::cout << b.getGrade() << std::endl;
+    Form *f1;
+    Form *f2;
+    Form *f3;
+    Form *f4;
+    Intern intern;
+    Bureaucrat b1 = Bureaucrat("moonyo", 42);
 
-	}
-	catch(std::exception & e)
-	{
-		std::cout << e.what() << std::endl;
-	}
-	try
-	{
-		Bureaucrat	b = Bureaucrat("nyo", 150);
-		std::cout << b.getName() << std::endl;
-		std::cout << b.getGrade() << std::endl;
-		b.decrementGrade();
-		std::cout << b.getGrade() << std::endl;
-		b.incrementGrade();
-		std::cout << b.getGrade() << std::endl;
-		b.incrementGrade();
-		std::cout << b.getGrade() << std::endl;
+    f1 = intern.makeForm("robotomy request", "moonyo");
+    f2 = intern.makeForm("presidential pardon", "moonyo");
+    f3 = intern.makeForm("shrubbery creation", "moonyo");
+    std::cout << *f1 << std::endl;
+    std::cout << *f2 << std::endl;
+    std::cout << *f3 << std::endl;
 
-	}
-	catch(std::exception & e)
-	{
-		std::cout << e.what() << std::endl;
-	}
-	return (0);
+    b1.signForm(*f1);
+    b1.executeForm(*f1);
+
+    f4 = intern.makeForm("TEST", "moonyo");
+
+    return (0);
 }
