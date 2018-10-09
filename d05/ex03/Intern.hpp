@@ -14,6 +14,7 @@
 # define INTERN_HPP
 
 #include <iostream>
+#include <stdexcept>
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
 #include "PresidentialPardonForm.hpp"
@@ -26,12 +27,15 @@ class	Intern
 		Intern();
 		Intern(Intern const & src);
 		~Intern();
-		Intern & operator=(Intern & rhs);
+		Intern & operator=(Intern const & rhs);
+		typedef Form* (Intern::*intPtr)(std::string);
 		Form * makeForm(std::string, std::string);
 		Form * searchForm(std::string, std::string);
-		Form * Presidential(std::string const & target);
-		Form * RobotmyRequest(std::string const & target);
-		Form * ShrubberyCreation(std::string const & target);
+		Form * Presidential(std::string target);
+		Form * RobotmyRequest(std::string target);
+		Form * ShrubberyCreation(std::string target);
+		intPtr	_function[3];
+		static std::string 	_name[3];	
 };
 
 #endif

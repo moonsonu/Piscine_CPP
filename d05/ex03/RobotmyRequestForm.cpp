@@ -16,20 +16,20 @@ const int RobotmyRequestForm::_sign = 145;
 const int RobotmyRequestForm::_exec = 137;
 
 RobotmyRequestForm::RobotmyRequestForm(void) :
-	Form("Anonymous", "Shrubbery", RobotmyRequestForm::_sign, RobotmyRequestForm::_exec)
+	Form("Anonymous", "Robot", RobotmyRequestForm::_sign, RobotmyRequestForm::_exec)
 {
 	return;
 }
 
 RobotmyRequestForm::RobotmyRequestForm(std::string target) :
-	Form(target, "Shrubbery", RobotmyRequestForm::_sign, RobotmyRequestForm::_exec)
+	Form(target, "Robot", RobotmyRequestForm::_sign, RobotmyRequestForm::_exec)
 {
 	return;
 }
 
 
 RobotmyRequestForm::RobotmyRequestForm(RobotmyRequestForm const & src) :
-	Form("Anonymous", "Shrubbery", RobotmyRequestForm::_sign, RobotmyRequestForm::_exec)
+	Form("Anonymous", "Robot", RobotmyRequestForm::_sign, RobotmyRequestForm::_exec)
 {
 	*this = src;
 	return;

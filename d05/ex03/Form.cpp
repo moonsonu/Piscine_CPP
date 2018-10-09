@@ -100,7 +100,9 @@ Form::Form() : _target("anonymous"), _name("Form"), _gsign(1), _gexecute(1), _si
 Form::Form(std::string t, std::string n, int s, int e) :_target(t),  _name(n), _gsign(s), _gexecute(e), _signed(false)
 {
 	if (_gsign < 1 || _gexecute < 1)
+	{
 		Bureaucrat::GradeTooHighException();
+	}
 	else if (_gsign > 150 || _gexecute > 150)
 		Bureaucrat::GradeTooLowException();
 	this->_signed = false;
