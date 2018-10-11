@@ -25,12 +25,12 @@ void iter(T *arr, size_t len, void (*func)(T const &))
 	}
 }
 
-void printInt(int const & i)
+void pInt(int const & i)
 {
 	std::cout << i << std::endl;
 }
 
-void printString(std::string const & str)
+void pStr(std::string const & str)
 {
 	std::cout << str << std::endl;
 }
@@ -41,11 +41,11 @@ int main(void)
 	std::string arrString[] = {"teddy", "mari", "lime", "mung", "neow"};
 
 	std::cout << "Array String: "<< std::endl;
-	iter(arrString, 5, printString);
+	iter(arrString, 5, pStr);
 	std::cout << std::endl;
 
 	std::cout << "Array Int: "<< std::endl;
-	iter(arrInt, 3, printInt);
+	iter(arrInt, 3, pInt);
 	std::cout << std::endl;
 
 	return (0);
