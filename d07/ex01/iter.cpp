@@ -37,15 +37,15 @@ void pStr(std::string const & str)
 
 int main(void)
 {
-	int arrInt[] = {23, 345, 923};
-	std::string arrString[] = {"teddy", "mari", "lime", "mung", "neow"};
+	int Int[] = {23, 345, 923};
+	std::string Str[] = {"teddy", "mari", "lime", "mung", "neow"};
 
-	std::cout << "Array String: "<< std::endl;
-	iter(arrString, 5, pStr);
+	std::cout << "*test string* "<< std::endl;
+	iter(Str, 5, pStr);
 	std::cout << std::endl;
 
-	std::cout << "Array Int: "<< std::endl;
-	iter(arrInt, 3, pInt);
+	std::cout << "*test int*"<< std::endl;
+	iter(Int, 3, pInt);
 	std::cout << std::endl;
 
 	return (0);
